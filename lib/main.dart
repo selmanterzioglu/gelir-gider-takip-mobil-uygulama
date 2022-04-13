@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:ffi';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kisisel_muhasebe_programi/account.dart';
 import 'package:kisisel_muhasebe_programi/progress_add.dart';
@@ -47,13 +45,10 @@ class _HomeScreen extends State {
     Route route = MaterialPageRoute(builder: (context) =>AccountProcessAdd(accountProcessList));
     Navigator.push(context, route).then((onGoBack));
   }
-
   void navigateDeleteProcessPage(){
-    Route route = MaterialPageRoute(builder: (context) =>AccountProcessDelete(selectedAccountProcess));
+    Route route = MaterialPageRoute(builder: (context) =>AccountProcessDelete(accountProcessList, selectedAccountProcess));
     Navigator.push(context, route).then((onGoBack));
   }
-
-
   FutureOr onGoBack(dynamic value){
     setState(() {});
   }
@@ -74,7 +69,9 @@ class _HomeScreen extends State {
                       });
                     },
                   );
-                })),
+                }
+                )
+        ),
         Text("Seçili İşlem: " + selectedAccountProcess.description),
         Row(
           children: <Widget>[
@@ -137,7 +134,7 @@ class _HomeScreen extends State {
                   ],
                 ),
                 onPressed: () {
-                  print("Sil butonuna basildi.");
+                  navigateDeleteProcessPage();
                 },
               ),
             ),

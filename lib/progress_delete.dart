@@ -3,51 +3,59 @@ import 'package:flutter/material.dart';
 import 'account.dart';
 
 class AccountProcessDelete extends StatefulWidget {
+  List<Account> accountProcessList = [];
+  Account selectedProcess = Account(0, "", 0.0);
 
-  var selectedProcess = Account(0,"",0.0);
-  AccountProcessDelete(this.selectedProcess);
+  AccountProcessDelete(this.accountProcessList,  this.selectedProcess);
 
   @override
   State<StatefulWidget> createState() {
-    return _AccountProcessDeleteState();
+    return _AccountProcessDeleteState(accountProcessList, selectedProcess);
   }
 }
 
 class _AccountProcessDeleteState extends State<AccountProcessDelete> {
   var formKey = GlobalKey<FormState>();
+  List<Account> accountProcessList = [];
+  Account selectedProcess = Account(0, "", 0.0);
+
+  _AccountProcessDeleteState(this.accountProcessList, this.selectedProcess);
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: AppBar(title: Text("Yeni ıslem Ekrai"),),
-      body: Container(
-        margin: EdgeInsets.all(20.0),
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: <Widget>[
-              buildDeleteButton()
-            ],
-
-          ),
-
+        appBar: AppBar(
+          title: Text("Yeni ıslem Ekrai"),
         ),
-      ),
-    );
+        body: Column(
+          children: <Widget>[
+            Text("id: " + selectedProcess.id.toString()),
+            Text("Description: " + selectedProcess.description),
+            Text("Cost: " + selectedProcess.cost.toString()),
+            Text("Yukaridaki  islemi  silmek istediginize emin misiniz ? "),
+            buildDeleteButton(),
+            buildCancelButton()
+          ],
+        ),
+      );
+
   }
 
-  Widget buildDeleteButton(){
+  Widget buildDeleteButton() {
     return ElevatedButton(
       child: Text("Sil"),
-      onPressed: (){
+      onPressed: () {
+        widget.accountProcessList.remove(selectedProcess);
         Navigator.pop(context);
       },
     );
   }
-  Widget buildCancelButton(){
+
+  Widget buildCancelButton() {
     return ElevatedButton(
       child: Text("İptal"),
-      onPressed: (){
+      onPressed: () {
         Navigator.pop(context);
       },
     );
