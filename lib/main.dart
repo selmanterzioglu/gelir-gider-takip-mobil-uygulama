@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
@@ -41,6 +42,15 @@ class _HomeScreen extends State {
     );
   }
 
+  void navigateNewProcessPage(){
+    Route route = MaterialPageRoute(builder: (context) =>AccountProcessAdd(accountProcessList));
+    Navigator.push(context, route).then((onGoBack));
+
+  }
+  FutureOr onGoBack(dynamic value){
+    setState(() {});
+  }
+
   Widget showLastProgress() {
     return Column(
       children: <Widget>[
@@ -78,7 +88,7 @@ class _HomeScreen extends State {
                   ],
                 ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>AccountProcessAdd(accountProcessList)));
+                  navigateNewProcessPage();
                 },
               ),
             ),
