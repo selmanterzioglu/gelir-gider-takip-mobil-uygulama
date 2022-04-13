@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kisisel_muhasebe_programi/account.dart';
 import 'package:kisisel_muhasebe_programi/progress_add.dart';
+import 'package:kisisel_muhasebe_programi/progress_delete.dart';
 
 void main() => runApp(MyApp());
 
@@ -45,8 +46,14 @@ class _HomeScreen extends State {
   void navigateNewProcessPage(){
     Route route = MaterialPageRoute(builder: (context) =>AccountProcessAdd(accountProcessList));
     Navigator.push(context, route).then((onGoBack));
-
   }
+
+  void navigateDeleteProcessPage(){
+    Route route = MaterialPageRoute(builder: (context) =>AccountProcessDelete(selectedAccountProcess));
+    Navigator.push(context, route).then((onGoBack));
+  }
+
+
   FutureOr onGoBack(dynamic value){
     setState(() {});
   }
