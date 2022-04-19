@@ -6,6 +6,8 @@ import 'package:kisisel_muhasebe_programi/progress_add.dart';
 import 'package:kisisel_muhasebe_programi/progress_delete.dart';
 import 'package:kisisel_muhasebe_programi/progress_update.dart';
 
+import 'about.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -39,24 +41,37 @@ class _HomeScreen extends State {
         appBar: AppBar(
           title: Center(child: Text("Kişisel Muhasebe Programi")),
         ),
-        body: showLastProgress()
-    );
+        body: showLastProgress());
   }
 
-  void navigateNewProcessPage(){
-    Route route = MaterialPageRoute(builder: (context) =>AccountProcessAdd(accountProcessList));
-    Navigator.push(context, route).then((onGoBack));
-  }
-  void navigateDeleteProcessPage(){
-    Route route = MaterialPageRoute(builder: (context) =>AccountProcessDelete(accountProcessList, selectedAccountProcess));
-    Navigator.push(context, route).then((onGoBack));
-  }
-  void navigateUpdateProcessPage(){
-    Route route = MaterialPageRoute(builder: (context) =>AccountProcessUpdate(accountProcessList, selectedAccountProcess));
+  void navigateNewProcessPage() {
+    Route route = MaterialPageRoute(
+        builder: (context) => AccountProcessAdd(accountProcessList));
     Navigator.push(context, route).then((onGoBack));
   }
 
-  FutureOr onGoBack(dynamic value){
+  void navigateDeleteProcessPage() {
+    Route route = MaterialPageRoute(
+        builder: (context) =>
+            AccountProcessDelete(accountProcessList, selectedAccountProcess));
+    Navigator.push(context, route).then((onGoBack));
+  }
+
+  void navigateUpdateProcessPage() {
+    Route route = MaterialPageRoute(
+        builder: (context) =>
+            AccountProcessUpdate(accountProcessList, selectedAccountProcess));
+    Navigator.push(context, route).then((onGoBack));
+  }
+
+  void navigateAboutProcessPage() {
+    Route route = MaterialPageRoute(
+        builder: (context) =>
+            aboutProgram());
+    Navigator.push(context, route).then((onGoBack));
+  }
+
+  FutureOr onGoBack(dynamic value) {
     setState(() {});
   }
 
@@ -76,9 +91,7 @@ class _HomeScreen extends State {
                       });
                     },
                   );
-                }
-                )
-        ),
+                })),
         Text("Seçili İşlem: " + selectedAccountProcess.description),
         Row(
           children: <Widget>[
@@ -146,7 +159,33 @@ class _HomeScreen extends State {
               ),
             ),
           ],
-        )
+        ),
+        Row(
+          children: <Widget>[
+            Flexible(
+              fit: FlexFit.tight,
+              flex: 2,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.blue,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    Text("HAKKINDA")
+                  ],
+                ),
+                onPressed: () {
+                  navigateAboutProcessPage();
+                },
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
