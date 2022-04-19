@@ -5,8 +5,7 @@ import 'account.dart';
 class AccountProcessDelete extends StatefulWidget {
   List<Account> accountProcessList = [];
   Account selectedProcess = Account(0, "", 0.0);
-
-  AccountProcessDelete(this.accountProcessList,  this.selectedProcess);
+  AccountProcessDelete(this.accountProcessList, this.selectedProcess);
 
   @override
   State<StatefulWidget> createState() {
@@ -23,23 +22,21 @@ class _AccountProcessDeleteState extends State<AccountProcessDelete> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Yeni ıslem Ekrai"),
-        ),
-        body: Column(
-          children: <Widget>[
-            Text("id: " + selectedProcess.id.toString()),
-            Text("Description: " + selectedProcess.description),
-            Text("Cost: " + selectedProcess.cost.toString()),
-            Text("Yukaridaki  islemi  silmek istediginize emin misiniz ? "),
-            buildDeleteButton(),
-            buildCancelButton()
-          ],
-        ),
-      );
-
+      appBar: AppBar(
+        title: Text("İşlem Silme Ekranı"),
+      ),
+      body: Column(
+        children: <Widget>[
+          Text("id: " + selectedProcess.id.toString()),
+          Text("Description: " + selectedProcess.description),
+          Text("Cost: " + selectedProcess.cost.toString()),
+          Text("Yukaridaki  islemi  silmek istediginize emin misiniz ? "),
+          buildDeleteButton(),
+          buildCancelButton()
+        ],
+      ),
+    );
   }
 
   Widget buildDeleteButton() {

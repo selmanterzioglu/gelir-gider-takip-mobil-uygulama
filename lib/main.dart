@@ -29,9 +29,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreen extends State {
   List<Account> accountProcessList = [
-    Account(0, "acıklama ", 10.0),
-    Account(1, "acıklama2 ", 23.0),
-    Account(2, "buda son harcama ", 27.0),
+    Account(0, "Kira", -3000.0),
+    Account(1, "Maaş ", 7000.0),
+    Account(2, "Market Alışverişi ", 27.0),
   ];
   Account selectedAccountProcess = Account(0, "", 0.0);
 
@@ -92,7 +92,8 @@ class _HomeScreen extends State {
                     },
                   );
                 })),
-        Text("Seçili İşlem: " + selectedAccountProcess.description),
+        Text("Toplam Gelir-Gider Durumu (TL): " + accountCalculator().toString(), style: Theme.of(context).textTheme.headline6),
+        Text("Seçili İşlem: " + selectedAccountProcess.description, style: Theme.of(context).textTheme.headline6),
         Row(
           children: <Widget>[
             Flexible(
@@ -188,5 +189,12 @@ class _HomeScreen extends State {
         ),
       ],
     );
+  }
+  accountCalculator(){
+    double sum = 0.0;
+    for (int i = 0; i<accountProcessList.length; i++){
+      sum += accountProcessList[i].cost;
+    }
+    return sum;
   }
 }

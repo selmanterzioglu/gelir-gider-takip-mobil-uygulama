@@ -25,7 +25,7 @@ class _AccountProcessUpdateState extends State<AccountProcessUpdate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Islem Guncelleme Ekrai"),),
+      appBar: AppBar(title: Text("İşlem Güncelleme Ekranı"),),
       body: Container(
         margin: EdgeInsets.all(20.0),
         child: SingleChildScrollView(

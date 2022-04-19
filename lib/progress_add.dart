@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'account.dart';
 
 class AccountProcessAdd extends StatefulWidget {
-
-  List<Account> accountProcess = [];
-  AccountProcessAdd(this.accountProcess);
+  List<Account> accountProcessList = [];
+  AccountProcessAdd(this.accountProcessList);
 
   @override
   State<StatefulWidget> createState() {
@@ -15,12 +13,14 @@ class AccountProcessAdd extends StatefulWidget {
 
 class _AccountProcessAddState extends State<AccountProcessAdd> {
   var formKey = GlobalKey<FormState>();
-  var lastProcess = Account(0,"",0.0);
+  var lastProcess = Account(0, "", 0.0);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Yeni ıslem Ekrai"),),
+      appBar: AppBar(
+        title: Text("Yeni İşlem Ekranı"),
+      ),
       body: Container(
         margin: EdgeInsets.all(20.0),
         child: Form(
@@ -37,35 +37,37 @@ class _AccountProcessAddState extends State<AccountProcessAdd> {
     );
   }
 
-  buildDescriptionField(){
+  buildDescriptionField() {
     return TextFormField(
       decoration: InputDecoration(
-          labelText: "Islem Aciklamasi",
-          hintText: "Kira Odemesi vb.",
+        labelText: "Islem Aciklamasi",
+        hintText: "Kira Odemesi vb.",
       ),
-      onSaved: (String? value){
+      onSaved: (String? value) {
         lastProcess.description = value!;
       },
     );
   }
-  buildCostField(){
+
+  buildCostField() {
     return TextFormField(
       decoration: InputDecoration(
-          labelText: "Fiyat",
-          hintText: "Ornek: '100' vb.",
+        labelText: "Fiyat",
+        hintText: "Ornek: '100' vb.",
       ),
-      onSaved: (String? value){
+      onSaved: (String? value) {
         lastProcess.cost = double.parse(value!);
       },
     );
   }
 
-  Widget buildSubmitButton(){
+  Widget buildSubmitButton() {
     return ElevatedButton(
       child: Text("Kaydet"),
-      onPressed: (){
+      onPressed: () {
+        lastProcess.id = widget.accountProcessList.length;
         formKey.currentState?.save();
-        widget.accountProcess.add(lastProcess);
+        widget.accountProcessList.add(lastProcess);
         Navigator.pop(context);
       },
     );
