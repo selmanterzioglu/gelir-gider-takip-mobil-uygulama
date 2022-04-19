@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kisisel_muhasebe_programi/account.dart';
 import 'package:kisisel_muhasebe_programi/progress_add.dart';
 import 'package:kisisel_muhasebe_programi/progress_delete.dart';
+import 'package:kisisel_muhasebe_programi/progress_update.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: HomeScreen(),
     );
   }
@@ -49,6 +51,11 @@ class _HomeScreen extends State {
     Route route = MaterialPageRoute(builder: (context) =>AccountProcessDelete(accountProcessList, selectedAccountProcess));
     Navigator.push(context, route).then((onGoBack));
   }
+  void navigateUpdateProcessPage(){
+    Route route = MaterialPageRoute(builder: (context) =>AccountProcessUpdate(accountProcessList, selectedAccountProcess));
+    Navigator.push(context, route).then((onGoBack));
+  }
+
   FutureOr onGoBack(dynamic value){
     setState(() {});
   }
@@ -113,7 +120,7 @@ class _HomeScreen extends State {
                   ],
                 ),
                 onPressed: () {
-                  print("Guncelle butonuna basildi.");
+                  navigateUpdateProcessPage();
                 },
               ),
             ),
