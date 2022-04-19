@@ -28,15 +28,17 @@ class _AccountProcessUpdateState extends State<AccountProcessUpdate> {
       appBar: AppBar(title: Text("Islem Guncelleme Ekrai"),),
       body: Container(
         margin: EdgeInsets.all(20.0),
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: <Widget>[
-              buildTextFormField(),
-              buildDescriptionField(),
-              buildCostField(),
-              buildSubmitButton()
-            ],
+        child: SingleChildScrollView(
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: <Widget>[
+                buildTextFormField(),
+                buildDescriptionField(),
+                buildCostField(),
+                buildSubmitButton()
+              ],
+            ),
           ),
         ),
       ),
