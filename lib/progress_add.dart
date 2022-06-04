@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'account.dart';
+import 'package:kisisel_muhasebe_programi/sql.dart';
+
 
 class AccountProcessAdd extends StatefulWidget {
   List<Account> accountProcessList = [];
@@ -72,4 +74,14 @@ class _AccountProcessAddState extends State<AccountProcessAdd> {
       },
     );
   }
+
+  /*
+  Future<void> _addItem() async {
+    await SQLHelper.createItem(
+        _titleController.text, _descriptionController.text);
+    _refreshJournals();
+  }
+*/
+
+
 }

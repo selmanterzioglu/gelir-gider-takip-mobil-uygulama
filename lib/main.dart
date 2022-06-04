@@ -1,12 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:kisisel_muhasebe_programi/account.dart';
 import 'package:kisisel_muhasebe_programi/progress_add.dart';
 import 'package:kisisel_muhasebe_programi/progress_delete.dart';
 import 'package:kisisel_muhasebe_programi/progress_update.dart';
-
 import 'about.dart';
+
+import 'package:kisisel_muhasebe_programi/sql.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -28,12 +29,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State {
+  List<Map<String, dynamic>> _DatabaseData = [];
+
   List<Account> accountProcessList = [
-    Account(0, "Kira", -3000.0),
+    Account(0, "Kiraa", -3000.0),
     Account(1, "Maaş ", 7000.0),
     Account(2, "Market Alışverişi ", 27.0),
   ];
   Account selectedAccountProcess = Account(0, "", 0.0);
+
+  bool _isLoading = true;
+
+  void _refresh_db_item() async {
+    final data = await SQLHelper.getItems();
+    setState(() {
+      _DatabaseData = data;
+      _isLoading = false;
+    });
+  }
+  @override
+  void initState() {
+    super.initState();
+    _refresh_db_item(); // Loading the diary when the app starts
+  }
 
   @override
   Widget build(BuildContext context) {
