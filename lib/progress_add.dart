@@ -63,6 +63,10 @@ class _AccountProcessAddState extends State<AccountProcessAdd> {
     );
   }
 
+  Future<void> _addItem(lastProcess) async {
+    await SQLHelper.createItem(lastProcess.description, lastProcess.cost);
+  }
+
   Widget buildSubmitButton() {
     return ElevatedButton(
       child: Text("Kaydet"),
@@ -70,6 +74,7 @@ class _AccountProcessAddState extends State<AccountProcessAdd> {
         lastProcess.id = widget.accountProcessList.length;
         formKey.currentState?.save();
         widget.accountProcessList.add(lastProcess);
+        _addItem(lastProcess);
         Navigator.pop(context);
       },
     );

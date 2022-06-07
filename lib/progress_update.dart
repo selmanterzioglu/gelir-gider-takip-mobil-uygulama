@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:kisisel_muhasebe_programi/sql.dart';
 import 'account.dart';
 
 class AccountProcessUpdate extends StatefulWidget {
@@ -45,7 +45,7 @@ class _AccountProcessUpdateState extends State<AccountProcessUpdate> {
     );
   }
 
-  buildDescriptionField(){
+  Widget buildDescriptionField(){
     return TextFormField(
       decoration: InputDecoration(
           labelText: "Islem Aciklamasi",
@@ -58,6 +58,7 @@ class _AccountProcessUpdateState extends State<AccountProcessUpdate> {
   }
 
   Widget buildTextFormField(){
+
     return Column(
       children: [
         Text("id: " + selectedProcess.id.toString(), style: Theme.of(context).textTheme.headline6),
@@ -68,7 +69,8 @@ class _AccountProcessUpdateState extends State<AccountProcessUpdate> {
       ],
     );
   }
-  buildCostField(){
+
+  Widget buildCostField(){
     return TextFormField(
       decoration: InputDecoration(
           labelText: "Fiyat",
@@ -85,9 +87,13 @@ class _AccountProcessUpdateState extends State<AccountProcessUpdate> {
       child: Text("Kaydet"),
       onPressed: (){
         formKey.currentState?.save();
-        widget.accountProcessList[selectedProcess.id] = selectedProcess;
+        _updateItem(selectedProcess);
         Navigator.pop(context);
       },
     );
+  }
+
+  Future<void> _updateItem(selectedProcess) async {
+    await SQLHelper.updateItem(selectedProcess.id, selectedProcess.description, selectedProcess.cost);
   }
 }

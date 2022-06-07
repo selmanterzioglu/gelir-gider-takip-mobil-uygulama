@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kisisel_muhasebe_programi/sql.dart';
 
 import 'account.dart';
 
@@ -39,11 +40,16 @@ class _AccountProcessDeleteState extends State<AccountProcessDelete> {
     );
   }
 
+  void _deleteItem(int id) async {
+    await SQLHelper.deleteItem(id);
+  }
+
   Widget buildDeleteButton() {
     return ElevatedButton(
       child: Text("Sil"),
       onPressed: () {
         widget.accountProcessList.remove(selectedProcess);
+        _deleteItem(selectedProcess.id);
         Navigator.pop(context);
       },
     );

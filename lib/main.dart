@@ -29,21 +29,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State {
-  List<Map<String, dynamic>> _DatabaseData = [];
+  List<Map<String, dynamic>> _databaseData = [];
 
-  List<Account> accountProcessList = [
-    Account(0, "Kiraa", -3000.0),
-    Account(1, "Maaş ", 7000.0),
-    Account(2, "Market Alışverişi ", 27.0),
-  ];
+
+  List<Account> accountProcessList = [];
   Account selectedAccountProcess = Account(0, "", 0.0);
 
   bool _isLoading = true;
+  var id_list = new Map();
 
   void _refresh_db_item() async {
     final data = await SQLHelper.getItems();
     setState(() {
-      _DatabaseData = data;
+      _databaseData = data;
       _isLoading = false;
     });
   }
@@ -55,11 +53,15 @@ class _HomeScreen extends State {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    _refresh_db_item();
+
+    var x =  Scaffold(
         appBar: AppBar(
           title: Center(child: Text("Kişisel Muhasebe Programi")),
         ),
         body: showLastProgress());
+
+    return x;
   }
 
   void navigateNewProcessPage() {
@@ -90,7 +92,9 @@ class _HomeScreen extends State {
   }
 
   FutureOr onGoBack(dynamic value) {
-    setState(() {});
+    setState(() {
+      _refresh_db_item();
+    });
   }
 
   Widget showLastProgress() {
@@ -98,14 +102,20 @@ class _HomeScreen extends State {
       children: <Widget>[
         Expanded(
             child: ListView.builder(
-                itemCount: accountProcessList.length,
+                itemCount: _databaseData.length,
                 itemBuilder: (BuildContext context, int index) {
+                  id_list.clear();
+
                   return ListTile(
-                    title: Text(accountProcessList[index].description),
-                    subtitle: Text(accountProcessList[index].cost.toString()),
+                    // title: Text(accountProcessList[index].description),
+                    title: Text(_databaseData[index]['description']),
+                    subtitle: Text(_databaseData[index]['cost'].toString()),
                     onLongPress: () {
                       setState(() {
-                        selectedAccountProcess = accountProcessList[index];
+                        id_list[index] = _databaseData[index]['id'];
+                        selectedAccountProcess.id = id_list[index];
+                        selectedAccountProcess.description = _databaseData[index]['description'];
+                        selectedAccountProcess.cost = _databaseData[index]['cost'].toDouble();
                       });
                     },
                   );
@@ -209,9 +219,10 @@ class _HomeScreen extends State {
     );
   }
   accountCalculator(){
+    _refresh_db_item();
     double sum = 0.0;
-    for (int i = 0; i<accountProcessList.length; i++){
-      sum += accountProcessList[i].cost;
+    for (int i = 0; i<_databaseData.length; i++){
+      sum += _databaseData[i]['cost'];
     }
     return sum;
   }
